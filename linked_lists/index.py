@@ -3,31 +3,38 @@ from utils import ListNode, create_linked_list
 
 
 class Solution:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
-        seen_nodes = {}
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        seen_values = {}
+
         curr = head
-
+        prev = None
         while curr:
-            if curr.val in seen_nodes:
-                if curr in seen_nodes[curr.val]:
-                    return True
-                else:
-                    seen_nodes[curr.val].append(curr)
-            else:
-                seen_nodes[curr.val] = [curr]
+            if curr.val in seen_values:
 
+                while curr and curr.val in seen_values:
+                    curr = curr.next
+
+                prev.next = curr
+
+                if curr:
+                    seen_values[curr.val] = 1
+                else:
+                    break
+            else:
+                seen_values[curr.val] = 1
+
+            prev = curr
             curr = curr.next
 
-        return False
+        return head
 
 
-node1 = ListNode(1)
-
-node3 = ListNode(3, None)
-node2 = ListNode(2, node3)
-node1.next = node2
+list1 = create_linked_list([1, 1, 2, 3, 3, 5, 5, 5, 5, 5])
 
 
 solution = Solution()
-result = solution.hasCycle(node1)
-print(result)
+result = solution.deleteDuplicates(list1)
+
+while result:
+    print(result.val)
+    result = result.next
