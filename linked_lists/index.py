@@ -5,7 +5,6 @@ from utils import ListNode, create_linked_list
 class Solution:
     def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
         seen_values = {}
-
         curr = head
         prev = None
         while curr:

@@ -1,27 +1,30 @@
 from typing import List
+import math
 
 
 class Solution:
-    def generate(self, numRows: int) -> List[List[int]]:
-        result = []
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        total_length = len(nums1) + len(nums2)
+        is_odd = False
 
-        for i in range(numRows):
-            temp = []
+        if total_length % 2 != 0:
+            is_odd = True
+            median_target = math.ceil(total_length / 2)
 
-            if i > 0:
-                prev_temp = result[i - 1]
-                for index, val in enumerate(prev_temp):
-                    if index == 0:
-                        temp.append(val)
-                    else:
-                        temp.append(val + prev_temp[index - 1])
+        p1 = 0
+        p2 = 0
 
-            temp.append(1)
-            result.append(temp)
+        while p1 + p2 < median_target:
+            pass
 
-        return result
+        if nums1[p1] < nums2[p2]:
+            p1 += 1
+        else:
+            p2 += 1
+
+        pass
 
 
 solution = Solution()
-answer = solution.generate(5)
+answer = solution.findMedianSortedArrays([1, 2], [3, 4])
 print(answer)
