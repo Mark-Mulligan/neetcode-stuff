@@ -1,32 +1,28 @@
 from typing import List
+import heapq
 
 
-class Solution:
-    def moveZeroes(self, nums: List[int]) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        p1 = 0
-        p2 = 0
+class KthLargest:
+    def __init__(self, k: int, nums: List[int]):
+        self.heap = []
+        self.k = k
+        heapq.heapify(self.heap)
 
-        while p1 < len(nums) and p2 < len(nums):
-            if nums[p1] != 0:
-                p1 += 1
-                p2 += 1
-                continue
+        for num in nums:
+            if len(self.heap) < k:
+                heapq.heappush(self.heap, num)
+            elif num > self.heap[0]:
+                heapq.heappush(self.heap, num)
+                heapq.heappop()
 
-            if nums[p2] == 0:
-                p2 += 1
-                continue
-
-            temp = nums[p1]
-            nums[p1] = nums[p2]
-            nums[p2] = temp
-
-        print(nums)
+    def add(self, val: int) -> int:
+        if len(self.heap) < self.k:
+            heapq.heappush(self.heap, val)
+        elif val > self.heap[0]:
+            heapq.heappush(self.heap, val)
+            heapq.heappop()
 
 
-solution = Solution()
-# [0,1,0,3,12]
-# [0, 0, 1]
-answer = solution.moveZeroes([1, 0, 1, 0, 3, 12])
+# solution = Solution()
+# answer = solution.topKFrequent([1, 1, 1, 2, 2, 3], 2)
+# print(answer)
